@@ -2229,6 +2229,8 @@ class Parser(ABC, Generic[ParserConfigT, SchemaFeaturesT]):
                 copied_original_field.data_type = data_type
                 copied_original_field.parent = model
                 copied_original_field.required = True
+                if self.apply_default_values_for_required_fields and copied_original_field.has_default:
+                    copied_original_field.use_default_with_required = True
                 model.fields.insert(index, copied_original_field)
                 model.fields.remove(model_field)
 
